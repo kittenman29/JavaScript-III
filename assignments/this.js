@@ -13,56 +13,56 @@
 
 // code example for Window Binding
 
-console.log(this);
+// console.log(this);
 
 // Principle 2
 
 // code example for Implicit Binding
 
-const hobbit = {
-  name: 'Samwise',
-  food: 'taters',
-  cook: function() {
-    console.log(`${this.name} loves to eat ${this.food}`)
-  }
-}
+// const hobbit = {
+//   name: 'Samwise',
+//   food: 'taters',
+//   cook: function() {
+//     console.log(`${this.name} loves to eat ${this.food}`)
+//   }
+// }
 
-hobbit.cook();
+// hobbit.cook();
 
 // Principle 3
 
 // code example for New Binding
 
-function Parent(attributes) {
-    this.age = attributes.age;
-    this.location = attributes.location;
-    this.name = attributes.name;
-    this.phrase = attributes.phrase;
-  }
+// function Parent(attributes) {
+//     this.age = attributes.age;
+//     this.location = attributes.location;
+//     this.name = attributes.name;
+//     this.phrase = attributes.phrase;
+//   }
   
-  Parent.prototype.speak = function() {
-      console.log(`${this.name} says: ${this.phrase}`);
-  }
+//   Parent.prototype.speak = function() {
+//       console.log(`${this.name} says: ${this.phrase}`);
+//   }
   
-  const fred = new Parent({
-    age: 35,
-    name: "Fred",
-    location: "Bedrock",
-    phrase: "Yabba Dabba Do!",
-  });
+//   const fred = new Parent({
+//     age: 35,
+//     name: "Fred",
+//     location: "Bedrock",
+//     phrase: "Yabba Dabba Do!",
+//   });
 
 // Principle 4
 
 // code example for Explicit Binding
 
-const person = {
-  name: 'Sarah',
-}
+// const person = {
+//   name: 'Sarah',
+// }
 
-const skills = ['HTML', 'CSS', 'JS'];
+// const skills = ['HTML', 'CSS', 'JS'];
 
-function introduce(skills2) {
-   console.log(`Hello!  My name is ${this.name}, and I have skills in: ${skills2}`)
-}
+// function introduce(skills2) {
+//    console.log(`Hello!  My name is ${this.name}, and I have skills in: ${skills2}`)
+// }
 
-introduce.apply(person, skills);
+// introduce.apply(person, skills);
