@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was destroyed from the game`;
+}
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charAttributes) {
+  GameObject.call(this, charAttributes);
+  this.healthPoints = charAttributes.healthPoints;
+  this.name = charAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +53,44 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes)
+  this.team = humanAttributes.team;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return(`${this.name} offers a greeting in ${this.language}`);
+}
+
+// Hero *************************
+
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes)
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.saveYou = function() {
+  return `${this.name} is here to save the day!`;
+}
+
+// Villain ******************************************
+
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes)
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.evilThing = function() {
+  return `${this.name} tries to pee on you like R Kelly`;
+}
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +100,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +151,41 @@
     language: 'Elvish',
   });
 
+  const heroGuy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 8,
+    },
+    healthPoints: 30,
+    name: 'Loser Man',
+    team: 'Team Hero',
+    weapons: [
+      'Fishing Pole',
+      'Rolled Up Newspaper',
+    ],
+    language: 'Dark Knight Voice',
+  });
+
+  const villainGuy = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 6,
+    },
+    healthPoints: 25,
+    name: 'Dr. Evil',
+    team: 'Team Villain',
+    weapons: [
+      'Hockey Stick',
+      'Chain',
+    ],
+    language: 'Squeal',
+  });
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +196,12 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
+  console.log(heroGuy.saveYou()); // Loser Man is here to save the Day!
+  console.log(villainGuy.evilThing()); // Dr. Evil tries to pee on you like R Kelly.
+
+  
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
